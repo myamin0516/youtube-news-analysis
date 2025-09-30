@@ -1,8 +1,8 @@
 import os
 import sqlite3
 from datetime import datetime, timedelta, UTC
-from youtube_api import fetch_recent_videos, fetch_top_comments
-from database import init_db, insert_video, insert_snapshot, insert_comments
+from youtube_api import fetch_recent_videos, fetch_top_comments  # relative import
+from database import init_db, insert_video, insert_snapshot, insert_comments  # relative import
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -19,8 +19,11 @@ CHANNELS = {
 }
 
 def main():
-    os.makedirs("data", exist_ok=True)
-    conn = sqlite3.connect("data/youtube_data.db")
+    # Create data directory if it doesn't exist (relative path)
+    os.makedirs("../data", exist_ok=True)
+    
+    # Connect to database (one level up from data_collection/)
+    conn = sqlite3.connect("../data/youtube_data.db")
     init_db(conn)
     
     # Get videos uploaded in last 48h
@@ -35,10 +38,9 @@ def main():
     
     # Process each video
     for video in all_videos:
-        video_id = insert_video(conn, video)  # Insert metadata (ignore duplicates)
-        insert_snapshot(conn, video_id, video["viewCount"])  # Insert snapshot
+        video_id = insert_video(conn, video)
+        insert_snapshot(conn, video_id, video["viewCount"])
         
-        # Fetch top 3 comments
         print(f"Fetching comments for video: {video['title'][:50]}...")
         comments = fetch_top_comments(video_id, YOUTUBE_API_KEY, max_comments=3)
         
@@ -50,7 +52,7 @@ def main():
     
     conn.commit()
     conn.close()
-    print("✅ Run complete.")
+    print("✅ Run complete. Data saved to ../data/youtube_data.db")
 
 if __name__ == "__main__":
     main()
