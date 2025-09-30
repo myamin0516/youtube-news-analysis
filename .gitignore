@@ -1,0 +1,31 @@
+# Virtual environment
+venv/
+env/
+
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Database (we'll handle this specially)
+# data/*.db
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs (keep locally only)
+logs/
+*.log
+
+# Batch files (Windows-specific)
+*.bat
