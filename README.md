@@ -22,6 +22,7 @@ This project collects video metadata and top comments from YouTube news channels
 - **Analysis**: Jupyter, Pandas (coming soon)
 
 ## Project Structure
+```
 youtube-comment-analysis/
 ├── data/
 │   └── youtube_data.db          # SQLite database
@@ -33,6 +34,7 @@ youtube-comment-analysis/
 │   └── workflows/
 │       └── collect_data.yml     # Automated collection schedule
 └── requirements.txt
+```
 
 ## Setup
 
